@@ -75,3 +75,12 @@ class ProjectListCreateView(APIView):
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+    
+class ProjectDetailView(APIView):
+    def get_object(self, pk, user):
+        project = get_object_or_404(Project, pk=pk)
+        if project.user != user:
+            raise PermissionDenied(" You don't have permission to access this project.")
+        return project
+
+    
