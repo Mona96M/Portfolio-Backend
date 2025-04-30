@@ -90,3 +90,10 @@ class ProjectDetailView(APIView):
         project = self.get_object(pk, request.user)
         project.delete()
         return Response(status=204)
+    def patch(self, request, pk):
+        project = self.get_object(pk, request.user)
+        serializer = ProjectSerializer(project, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
