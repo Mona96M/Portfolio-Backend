@@ -21,7 +21,8 @@ class Skill(models.Model):
     
 
 class Project(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='projects')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
+
     project_name = models.CharField(max_length=50)
     description = models.CharField(max_length=300)
     project_url = models.URLField(blank=True) 
