@@ -82,5 +82,9 @@ class ProjectDetailView(APIView):
         if project.user != user:
             raise PermissionDenied(" You don't have permission to access this project.")
         return project
+    def get(self, request, pk):
+        project = self.get_object(pk, request.user)
+        serializer = ProjectSerializer(project)
+        return Response(serializer.data, status=200)
 
     
