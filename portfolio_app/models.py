@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Education(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='educations')
     university = models.CharField(max_length=50)
     major = models.CharField(max_length=50)
 
