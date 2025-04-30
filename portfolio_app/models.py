@@ -18,3 +18,13 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.name_of_skill
+    
+
+class Project(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='projects')
+    project_name = models.CharField(max_length=50)
+    description = models.CharField(max_length=300)
+    project_url = models.URLField(blank=True) 
+
+    def __str__(self):
+        return self.project_name
