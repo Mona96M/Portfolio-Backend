@@ -7,8 +7,8 @@ from django.contrib.auth.models import User
 from rest_framework.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 
-from .models import Education, Skill
-from .serializers import EducationSerializer, SkillSerializer
+from .models import Education, Skill, Project
+from .serializers import EducationSerializer, SkillSerializer, ProjectSerializer
 # Create your views here.
 
 class EducationListCreateView(APIView):
@@ -62,3 +62,9 @@ class SkillDetailView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
+    
+class ProjectListCreateView(APIView):
+    def get(self, request):
+        project = Project.objects.filter(user=request.user)
+        serializer = ProjectSerializer(project, many=True)
+        return Response(serializer.data, status=200)
