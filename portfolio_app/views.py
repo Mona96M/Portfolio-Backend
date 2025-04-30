@@ -86,5 +86,7 @@ class ProjectDetailView(APIView):
         project = self.get_object(pk, request.user)
         serializer = ProjectSerializer(project)
         return Response(serializer.data, status=200)
-
-    
+    def delete(self, request, pk):
+        project = self.get_object(pk, request.user)
+        project.delete()
+        return Response(status=204)
