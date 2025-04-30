@@ -49,3 +49,8 @@ class SkillDetailView(APIView):
         skill = self.get_object(pk, request.user)
         serializer = SkillSerializer(skill)
         return Response(serializer.data, status=200)
+    
+    def delete(self, request, pk):
+        skill = self.get_object(pk, request.user)
+        skill.delete()
+        return Response(status=204)
