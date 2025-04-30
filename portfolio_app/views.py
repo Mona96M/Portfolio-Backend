@@ -40,7 +40,7 @@ class SkillListCreateView(APIView):
     
 class SkillDetailView(APIView):
     def get_object(self, pk, user):
-        skill = get_object_or_404(skill, pk=pk)
+        skill = get_object_or_404(Skill, pk=pk)
         if skill.user != user:
             raise PermissionDenied(" You don't have permission to access this skill.")
         return skill
