@@ -24,6 +24,30 @@ class EducationListCreateView(APIView):
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
     
+class EducationDetailView(APIView):
+    def get_object(self, pk, user):
+        education = get_object_or_404(Education, pk=pk)
+        if education.user != user:
+            raise PermissionDenied(" You don't have permission to access this education.")
+        return education
+
+    def get(self, request, pk):
+        education = self.get_object(pk, request.user)
+        serializer = EducationSerializer(education)
+        return Response(serializer.data, status=200)
+    
+    def delete(self, request, pk):
+        education = self.get_object(pk, request.user)
+        education.delete()
+        return Response(status=204)
+    
+    def patch(self, request, pk):
+        education = self.get_object(pk, request.user)
+        serializer = EducationSerializer(education, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
 
 class SkillListCreateView(APIView):
     def get(self, request):
