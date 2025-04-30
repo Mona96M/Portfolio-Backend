@@ -8,3 +8,10 @@ class Education(models.Model):
 
     def __str__(self):
         return self.university
+    
+
+class Skill(models.Model):
+    name_of_skill = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name_of_skill
