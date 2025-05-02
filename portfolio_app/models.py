@@ -3,6 +3,16 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
+class PersonalInfo(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='personalInfo')
+    full_name = models.CharField(max_length=50)
+    phone = models.CharField(max_length=10)
+    linkedin = models.URLField(blank=True) 
+    bio = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.full_name
+    
 class Education(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='educations')
     university = models.CharField(max_length=50)
