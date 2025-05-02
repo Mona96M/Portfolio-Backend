@@ -7,10 +7,47 @@ from django.contrib.auth.models import User
 from rest_framework.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
 
-from .models import Education, Skill, Project
-from .serializers import EducationSerializer, SkillSerializer, ProjectSerializer
+from .models import PersonalInfo, Education, Skill, Project
+from .serializers import PersonalInfoSerializer, EducationSerializer, SkillSerializer, ProjectSerializer
 # Create your views here.
+class PersonalInfoListCreateView(APIView):
+    def get(self, request):
+        personalInfo = PersonalInfo.objects.all()
+        serializer = PersonalInfoSerializer(personalInfo, many=True)
+        return Response(serializer.data, status=200)
+    
+    def post(self, request):
+        serializer = PersonalInfoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+    
+class PersonalInfoDetailView(APIView):
+    def get_object(self, pk, user):
+        personalInfo = get_object_or_404(PersonalInfo, pk=pk)
+        if personalInfo.user != user:
+            raise PermissionDenied(" You don't have permission to access this personal info.")
+        return personalInfo
 
+    def get(self, request, pk):
+        personalInfo = self.get_object(pk, request.user)
+        serializer = PersonalInfoSerializer(personalInfo)
+        return Response(serializer.data, status=200)
+    
+    def delete(self, request, pk):
+        personalInfo = self.get_object(pk, request.user)
+        personalInfo.delete()
+        return Response(status=204)
+    
+    def patch(self, request, pk):
+        personalInfo = self.get_object(pk, request.user)
+        serializer = PersonalInfoSerializer(personalInfo, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+    
 class EducationListCreateView(APIView):
     def get(self, request):
         education = Education.objects.all()
