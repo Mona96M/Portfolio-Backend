@@ -6,6 +6,10 @@ from django.contrib.auth.models import User
 
 from rest_framework.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.password_validation import validate_password
+from rest_framework.permissions import AllowAny
+from django.core.exceptions import ValidationError
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import PersonalInfo, Education, Skill, Project
 from .serializers import PersonalInfoSerializer, EducationSerializer, SkillSerializer, ProjectSerializer
@@ -158,3 +162,29 @@ class ProjectDetailView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
+    
+class SignUpView(APIView):
+    permission_classes = [AllowAny]
+    def post(self, request):
+        username = request.data.get('username')
+        email = request.data.get('email')
+        password = request.data.get('password')
+
+        try:
+            validate_password(password)
+        except ValidationError as err:
+            return Response({'error': err.messages}, status=400)
+
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password
+        )
+        tokens = RefreshToken.for_user(user)
+        return Response(
+            {
+                'refresh': str(tokens),
+                'access': str(tokens.access_token)
+            },
+            status=201
+        )
