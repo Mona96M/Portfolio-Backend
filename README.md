@@ -32,13 +32,13 @@ https://git.generalassemb.ly/mona96m/Portfolio-Frontend
 | POST          | /token/refresh/           | Refresh access token             |
 | POST          | /signup/                  | Register a new user              |
 | GET/POST      | /personalinfo/            | List/Create personal info        |
-| PATCH /DELETE | /personalinfo/<id>/       | Update/Delete personal info by ID|
+| PATCH /DELETE | /personalinfo/<int:pk>/   | Update/Delete personal info by ID|
 | GET/POST      | /educations/              | List and Create education        |
-| PATCH /DELETE | /educations/<id>/         | Update/Delete education by ID    |
+| PATCH /DELETE | /educations/<int:pk>/     | Update/Delete education by ID    |
 | GET/POST      | /skills/                  | List and Create skills           |
-| PATCH /DELETE | /skills/<id>/             | Update/Delete skill by ID        |
+| PATCH /DELETE | skills/<int:pk>/          | Update/Delete skill by ID        |
 | GET /POST     | /projects/                | List/Create projects             |
-| PATCH /DELETE | /projects/<id>/           | Update/Delete project by ID      |
+| PATCH /DELETE | projects/<int:pk>/        | Update/Delete project by ID      |
 
 
 
