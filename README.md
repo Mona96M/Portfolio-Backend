@@ -3,7 +3,7 @@
 
 ## Description
 
-The backend is developed using Django REST Framework (DRF). It handles user authentication using JWT, manages data models (Personal Info, Education, Skills, Projects), and exposes secure API endpoints. The backend ensures that each user can only access and modify their own data using permission classes and filtering by request.user. It also includes support for CORS to allow safe integration with the React frontend.
+The backend is built by using Django REST Framework (DRF). It handles user authentication using JWT, manages data models (Personal Info, Education, Skills, Projects), and exposes secure API endpoints. The backend ensures that each user can only access and modify their own data using permission classes and filtering by request.user. It also includes support for CORS to allow safe integration with the React frontend.
 
 
 ## Tech Stack
