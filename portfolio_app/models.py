@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class PersonalInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='personalInfo')
     full_name = models.CharField(max_length=50)
-    phone = models.CharField(max_length=10)
+    phone = models.CharField(max_length=15)
     linkedin = models.URLField(blank=True) 
     bio = models.CharField(max_length=500)
 
