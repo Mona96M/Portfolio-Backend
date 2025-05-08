@@ -48,11 +48,16 @@ https://git.generalassemb.ly/mona96m/Portfolio-Frontend
 ```git clone https://git.generalassemb.ly/mona96m/Portfolio-Backend```
 #### Activate a virtual environment
 ```pipenv shell```
+```pipenv install django djangorestframework psycopg2-binary```
 #### Run migrations
+```python manage.py makemigrations```
 ```python manage.py migrate```   
+####  Create a superuser
+```python manage.py createsuperuser```
 #### Run server
 ```python manage.py runserver```    
-
+#### Visit 
+http://127.0.0.1:8000/admin
 
 
 ## Icebox Features
