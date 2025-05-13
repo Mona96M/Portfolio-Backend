@@ -17,7 +17,7 @@ The backend is built by using Django REST Framework (DRF). It handles user authe
 
 ## Front End Repo Link
 
-https://git.generalassemb.ly/mona96m/Portfolio-Frontend
+https://github.com/Mona96M/Portfolio-Frontend
 
 
 ## ERD diagram
